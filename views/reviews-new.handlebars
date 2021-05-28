@@ -1,0 +1,22 @@
+{{!-- views/reviews-new.handlebars --}}
+
+<form method="POST" action="/reviews">
+    <fieldset>
+        <legend>New Review</legend>
+        {{!-- TITLE --}}
+        <p>
+            <label for="title">Title</label><br>
+            <input type="text" name="title" />
+        </p>
+        <p>
+            <label for="movieTitle">Movie Title</label><br>
+            <input type="text" name="movieTitle" />
+        </p>
+    </fieldset>
+
+    {{!-- BUTTON --}}
+    <p>
+        <button type="submit">Save Review</button>
+    </p>
+
+</form>
