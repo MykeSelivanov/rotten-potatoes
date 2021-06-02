@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const Handlebars = require('handlebars');
 const mongoose = require('mongoose');
+const methodOverride = require('method-override');
 var Schema = mongoose.Schema;
 
 // Initialize body-parser and add it to app
@@ -14,7 +15,7 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 var exphbs = require('express-handlebars');
 
 // The following line must appear AFTER const app = express() and before routes
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }), methodOverride('_method'));
 
 // set the templating engine -> handlebars
 app.engine('handlebars', exphbs({defaultLayout: 'main',
@@ -51,7 +52,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/reviews/new', (req, res) => {
-    res.render('reviews-new', {});
+    res.render('reviews-new', { title: "Post a review" });
 });
 
 app.post('/reviews', (req, res) => {
@@ -76,8 +77,17 @@ app.get('/reviews/:id', (req, res) => {
 
 app.get('/reviews/:id/edit', (req, res) => {
     Review.findById(req.params.id, function (err, review) {
-        res.render('reviews-edit', { review: review });
+        res.render('reviews-edit', { review: review, title: "Edit review" });
     });
+});
+
+app.put('/reviews/:id', (req, res) => {
+    Review.findByIdAndUpdate(req.params.id, req.body)
+        .then(review => {
+            res.redirect(`/reviews/${review._id}`);
+        }).catch((err) => {
+            console.log(err.message);
+        });
 });
 
 // define app route
