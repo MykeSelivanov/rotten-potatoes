@@ -1,6 +1,7 @@
 // require libraries
 const express = require('express');
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -16,12 +17,16 @@ app.set('view engine', 'handlebars');
 
 // server connection with mongodb client
 mongoose.connect('mongodb+srv://admin:Abc123@cluster0.hyums.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true });
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, "MongoDB connection error:"));
 
-const Review = mongoose.model('Review', {
+var reviewSchema = new Schema({
     title: String,
     movieTitle: String,
     description: String
 });
+
+const Review = mongoose.model('Review', reviewSchema);
 
 let reviews = [
     {title: "Great Reviews", movieTitle: "Botman II"},
@@ -30,7 +35,7 @@ let reviews = [
 
 // get home route -> sending message
 app.get('/', (req, res) => {
-    Review.find()
+    Review.find().lean()
         .then(reviews => {
             res.render('reviews-index', { reviews: reviews });
         })
@@ -53,7 +58,16 @@ app.post('/reviews', (req, res) => {
             console.log(err.message);
         });
     console.log(req.body.title);
-})
+});
+
+app.get('/reviews/:id', (req, res) => {
+    Review.findById(req.params.id)
+        .then((review) => {
+            res.render('reviews-show', { review: review })
+        }).catch((err) => {
+            console.log(err.message);
+        });
+});
 
 // define app route
 app.listen(3000, () => {
