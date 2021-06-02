@@ -3,7 +3,7 @@
 <a href="/reviews/new">New Review</a>
 
 {{#each reviews}}
-    <a href="/reviews/{{this.id}}" style="text-decoration: none;">
+    <a href="/reviews/{{this._id}}" style="text-decoration: none;">
     <h2 style="color: bisque;">{{this.title}}</a> |
     <i style="color: cadetblue;">{{this.movieTitle}}</i></h2>
     <small>{{this.description}}</small>

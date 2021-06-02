@@ -1,9 +1,14 @@
 // require libraries
 const express = require('express');
+const app = express();
+const Handlebars = require('handlebars');
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+
+// Initialize body-parser and add it to app
 const bodyParser = require('body-parser');
-const app = express();
+
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 
 // middleware
 var exphbs = require('express-handlebars');
@@ -12,7 +17,8 @@ var exphbs = require('express-handlebars');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // set the templating engine -> handlebars
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({defaultLayout: 'main',
+handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'handlebars');
 
 // server connection with mongodb client
@@ -52,12 +58,11 @@ app.post('/reviews', (req, res) => {
     Review.create(req.body)
         .then((review) => {
             console.log(review);
-            res.redirect('/');
+            res.redirect(`/reviews/${review._id}`);
         })
         .catch((err) => {
             console.log(err.message);
         });
-    console.log(req.body.title);
 });
 
 app.get('/reviews/:id', (req, res) => {
@@ -67,6 +72,12 @@ app.get('/reviews/:id', (req, res) => {
         }).catch((err) => {
             console.log(err.message);
         });
+});
+
+app.get('/reviews/:id/edit', (req, res) => {
+    Review.findById(req.params.id, function (err, review) {
+        res.render('reviews-edit', { review: review });
+    });
 });
 
 // define app route
