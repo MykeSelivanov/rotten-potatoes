@@ -2,11 +2,13 @@
 
 <a href="/reviews/new">New Review</a>
 
-{{#each reviews}}
-
-    <a href="/reviews/{{this._id}}" style="text-decoration: none;">
-    <h2 style="color: rgb(25, 185, 185);">{{this.title}}</a> | 
-    <i style="color: rgb(43, 179, 31);">{{this.movieTitle}}</i></h2>
-    <small>{{this.description}}</small>
-
-{{/each}}
+<div class="row">
+    {{#each reviews}}
+        <div class="col-md-3">
+            <a href="/reviews/{{this._id}}" style="text-decoration: none;">
+            <h2 style="color: rgb(25, 185, 185);">{{this.title}}</a> | 
+            <i style="color: rgb(43, 179, 31);">{{this.movieTitle}}</i></h2>
+            <small>{{this.description}}</small>
+        </div>
+    {{/each}}
+</div>

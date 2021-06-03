@@ -15,6 +15,7 @@ var exphbs = require('express-handlebars');
 
 // The following line must appear AFTER const app = express() and before routes
 app.use(bodyParser.urlencoded({ extended: true }), methodOverride('_method'));
+app.use(express.static('public'));
 
 // set the templating engine -> handlebars
 app.engine('handlebars', exphbs({defaultLayout: 'main',
