@@ -1,11 +1,15 @@
 <!-- views/reviews-new.handlebars -->
 
-<form method="POST" action="/reviews">
-  {{> reviews-form}}
+<div class="row">
+    <div class="col-sm-6 col-sm-offset-3"></div>
+        <form method="POST" action="/reviews">
+            {{> reviews-form}}
 
-  <!-- BUTTON -->
-  <p>
-    <button type="submit">Save Review</button>
-  </p>
+        <!-- BUTTON -->
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Save Review</button>
+            </div>
 
-</form>
+        </form>
+    </div>
+</div>
