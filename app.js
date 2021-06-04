@@ -4,6 +4,7 @@ const app = express();
 const Handlebars = require('handlebars');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+require('dotenv').config();
 
 // Initialize body-parser and add it to app
 const bodyParser = require('body-parser');
@@ -23,12 +24,12 @@ handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'handlebars');
 
 // server connection with mongodb client
-mongoose.connect('mongodb+srv://admin:Abc123@cluster0.hyums.mongodb.net/test', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.hyums.mongodb.net/test`, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, "MongoDB connection error:"));
 const reviews = require("./controllers/reviews")(app);
 
 // define app route
-app.listen(3000, () => {
-    console.log(`App listening on port 3000!`);
+app.listen(process.env.PORT || 3000, () => {
+    console.log(`App listening on port ${process.env.PORT}!`);
 });
