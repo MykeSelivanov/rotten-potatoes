@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
     title: String,
-    content: String
+    content: String,
+    reviewId: {}
 });
 
 const Comment = mongoose.model('Comment', commentSchema);
