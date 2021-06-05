@@ -1,17 +1,24 @@
+<!-- views/reviews-show.handlebars -->
+
 <a href="/">Back to Home</a>
 
-<div class="row"></div>
-    <div class="col-sm-6 col-sm-offset-3">
-        <h1>{{review.title}}</h1>
-        <h5>{{review.movieTitle}}</h5>
-        <p>{{review.description}}</p>
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-3">
 
-        <p><a href="/reviews/{{review._id}}/edit">Edit</a></p>
+    <h1>{{review.title}}</h1>
+    <h2>{{review.movieTitle}}</h2>
+    <p>{{review.description}}</p>
+    
+    <p><a href="/reviews/{{review._id}}/edit">Edit</a></p>
 
-        <p>
-            <form action="/reviews/{{review._id}}?_method=DELETE" method="POST">
-                <button type="submit">Delete</button>
-            </form>
-        </p>
-    </div>
+    <p><form method="POST" action="/reviews/{{review._id}}?_method=DELETE">
+        <button class="btn btn-primary" type="submit">Delete</button>
+    </form></p>
+
+    <hr>
+
+    <!-- Comment form -->
+    {{> comment-form}}
+
+  </div>
 </div>
