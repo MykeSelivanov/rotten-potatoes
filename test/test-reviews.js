@@ -66,12 +66,43 @@ describe('Reviews', () => {
         done();
     });
 
+    // CRUD operations for reviews
+    // Test Create new review
+    it('should create a review', (done) => {
+        chai.request(server)
+            .post('/reviews')
+            .set('content-type','application/x-www-form-urlencoded')
+            .send(sampleReview)
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.should.be.html;
+                done();
+            });
+    });
+
+    // Test Update
+    it('should update a SINGLE review on /reviews/<id> PUT', (done) => {
+        Review.create(sampleReview).then((err, data) => {
+            chai.request(server)
+                .put(`/reviews/${data._id}?_method=PUT`)
+                .set('content-type','application/json')
+                .send({'title': 'Updating the title'})
+                .end((err, res) => {
+                    res.should.have.status(200);
+                    res.should.be.html;
+                    res.title.should.equal('Updating this title');
+                    done();
+                });
+        });
+        done();
+    });
+
 
     // Clean up
     after(() => {
-        Review.findOneAndRemove({title: 'This is Test Review'})
+        Review.deleteMany({title: 'This is Test Review'})
             .exec((err, reviews) => {
-                console.log(reviews);
+                // console.log(reviews);
             });
     });
 
