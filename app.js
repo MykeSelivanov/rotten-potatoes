@@ -4,6 +4,8 @@ const app = express();
 const Handlebars = require('handlebars');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const cookieParser = require('cookie-parser');
+const checkAuth = require('./middleware/checkAuth');
 require('dotenv').config();
 
 // Initialize body-parser and add it to app
@@ -16,7 +18,12 @@ var exphbs = require('express-handlebars');
 
 // The following line must appear AFTER const app = express() and before routes
 app.use(bodyParser.urlencoded({ extended: true }), methodOverride('_method'));
+// statis files
 app.use(express.static('public'));
+// middleware for parsing cookies
+app.use(cookieParser());
+// check authentication of user
+app.use(checkAuth);
 
 // set the templating engine -> handlebars
 app.engine('handlebars', exphbs({defaultLayout: 'main',
