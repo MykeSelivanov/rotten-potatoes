@@ -49,8 +49,21 @@ describe('Comments', () => {
                 res.should.have.status(200);
                 res.should.be.html;
                 done();
-            })
-    })
+            });
+    });
+
+    // Clean up
+    after(() => {
+        Review.deleteMany({title: 'This is Test Review'})
+            .exec((err, reviews) => {
+                console.log(reviews);
+            });
+
+        Comment.deleteMany({title: 'This is test comment'})
+                .exec((err, comments) => {
+                    console.log(comments);
+                });
+    });
 
 
 });
