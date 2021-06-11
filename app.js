@@ -31,8 +31,8 @@ handlebars: allowInsecurePrototypeAccess(Handlebars)}));
 app.set('view engine', 'handlebars');
 
 // server connection with mongodb client
-// const connectionString = `mongodb+srv://admin:Abc123@cluster0.hyums.mongodb.net/test`;
-const connectionString = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.hyums.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
+const connectionString = `mongodb+srv://admin:Abc123@cluster0.hyums.mongodb.net/test`;
+// const connectionString = `mongodb+srv://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@cluster0.hyums.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority`;
 mongoose.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, "MongoDB connection error:"));
