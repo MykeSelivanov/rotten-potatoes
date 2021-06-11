@@ -6,6 +6,7 @@
     {{#each reviews}}
         <div class="col-md-3">
             <a href="/reviews/{{this._id}}" style="text-decoration: none;">
+            <div><small>{{this.author.username}}</small></div>
             <h2 style="color: rgb(25, 185, 185);">{{this.title}}</a> | 
             <i style="color: rgb(43, 179, 31);">{{this.movieTitle}}</i></h2>
             <small>{{this.description}}</small>
