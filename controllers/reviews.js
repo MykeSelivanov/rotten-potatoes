@@ -1,5 +1,6 @@
 const Review = require('../models/review');
 const Comment = require('../models/comment')
+const User = require('../models/user');
 
 module.exports = function (app) {
 
@@ -9,7 +10,7 @@ module.exports = function (app) {
         // retrieve current user
         const currentUser = req.user;
 
-        Review.find().lean()
+        Review.find().lean().populate('author')
             .then(reviews => {
                 res.render('reviews-index', { reviews: reviews, currentUser });
             })
@@ -24,25 +25,39 @@ module.exports = function (app) {
         res.render('reviews-new', { title: "Post a review", currentUser });
     });
     
-    app.post('/reviews', (req, res) => {
-        Review.create(req.body)
-            .then((review) => {
-                console.log(review);
-                res.redirect(`/reviews/${review._id}`);
-            })
+    // CREATE
+    app.post('/reviews/new', (req, res) => {
+            if (req.user) {
+            const userId = req.user._id;
+            const review = new Review(req.body);
+            review.author = userId;
+
+            review
+                .save()
+                .then(() => User.findById(userId))
+                .then((user) => {
+                user.reviews.unshift(review);
+                user.save();
+                // REDIRECT TO THE NEW review
+                return res.redirect(`/reviews/${review._id}`);
+                })
             .catch((err) => {
-                console.log(err.message);
+            console.log(err.message);
             });
+        } else {
+            return res.status(401); // UNAUTHORIZED
+        }
     });
     
+    // GETTING SINGLE REVIEW
     app.get('/reviews/:id', (req, res) => {
         // retrieve current user
         const currentUser = req.user;
-        Review.findById(req.params.id)
+        Review.findById(req.params.id).lean().populate('comments').populate('author')
         .then(review => {
             Comment.find({ reviewId: req.params.id })
                 .then((comments) => {
-                    res.render('reviews-show', {review: review, comments: comments, currentUser});
+                    res.render('reviews-show', { review, comments, currentUser });
                 });
         })
         .catch(err => {
