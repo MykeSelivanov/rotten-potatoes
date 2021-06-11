@@ -1,32 +1,33 @@
-<div class="container mt-4">
-    <form action="/login" method="POST">
-    <fieldset>
-        <legend>Login</legend>
-        <!-- USERNAME -->
-        <div class="form-group">
-        <label for="comment-title">Username</label><br>
-        <input class="form-control"
-            id="username"
-            type="text"
-            name="username"
-            placeholder="Username"/>
-        </div>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <form action="/login" method="POST">
+        <fieldset>
+            <legend>Login</legend>
+            <!-- USERNAME -->
+            <div class="form-group">
+            <label for="comment-title">Username</label><br>
+            <input class="form-control"
+                id="username"
+                type="text"
+                name="username"
+                placeholder="Username"/>
+            </div>
 
-        <!-- PASSWORD -->
-        <div class="form-group">
-        <label for="comment-content">Password</label><br>
-        <input class="form-control"
-        id="password-content"
-        type="password"
-        name="password"
-    
-        placeholder="Your password"/></textarea>
-        </div>
-    </fieldset>
+            <!-- PASSWORD -->
+            <div class="form-group">
+            <label for="comment-content">Password</label><br>
+            <input class="form-control"
+            id="password-content"
+            type="password"
+            name="password"
+            placeholder="Your password"/></textarea>
+            </div>
+        </fieldset>
 
-    <!-- BUTTON -->
-    <div class="form-group">
-        <button class="btn btn-primary" type="submit">Login</button>
+        <!-- BUTTON -->
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Login</button>
+        </div>
+        </form>
     </div>
-    </form>
 </div>

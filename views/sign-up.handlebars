@@ -1,33 +1,35 @@
-<div class="container mt-4">
-    <form action="sign-up" method="POST">
-    <fieldset>
-        <legend>Sign Up</legend>
-        <!-- USERNAME -->
-        <div class="form-group">
-            <p style="color: red;">{{message}}</p>
-        <label for="comment-title">Username</label><br>
-        <input class="form-control"
-            id="username"
-            type="text"
-            name="username"
-            placeholder="username">
-        </div>
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4">
+        <form action="sign-up" method="POST">
+        <fieldset>
+            <legend>Sign Up</legend>
+            <!-- USERNAME -->
+            <div class="form-group">
+                <p style="color: red;">{{message}}</p>
+            <label for="comment-title">Username</label><br>
+            <input class="form-control"
+                id="username"
+                type="text"
+                name="username"
+                placeholder="username">
+            </div>
 
-        <!-- PASSWORD -->
-        <div class="form-group">
-        <label for="comment-content">Password</label><br>
-        <textarea class="form-control"
-        id="password-content"
-        type="password"
-        name="password"
-    
-        placeholder="Your password"/></textarea>
-        </div>
-    </fieldset>
+            <!-- PASSWORD -->
+            <div class="form-group">
+            <label for="comment-content">Password</label><br>
+            <textarea class="form-control"
+            id="password-content"
+            type="password"
+            name="password"
+        
+            placeholder="Your password"/></textarea>
+            </div>
+        </fieldset>
 
-    <!-- BUTTON -->
-    <div class="form-group">
-        <button class="btn btn-primary" type="submit">Signup</button>
+        <!-- BUTTON -->
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit">Signup</button>
+        </div>
+        </form>
     </div>
-    </form>
 </div>

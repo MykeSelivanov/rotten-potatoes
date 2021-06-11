@@ -4,12 +4,13 @@
   <div class="card-block">
     <h4 class="card-title">{{this.title}}</h4>
     <p class="card-text">{{this.content}}</p>
-    <small></small>
 
     <!-- Delete link -->
-    <p><form method="POST" action="/reviews/comments/{{this._id}}?_method=DELETE">
+    <p>
+      <form method="POST" action="/reviews/comments/{{this._id}}?_method=DELETE">
         <button class="btn btn-primary" type="submit">Delete</button>
-    </form></p>
+      </form>
+    </p>
 
   </div>
 </div>
