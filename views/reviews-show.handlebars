@@ -6,15 +6,21 @@
   <div class="col-sm-6 col-sm-offset-3">
 
     <h1>{{review.title}}</h1>
+    <p class="text-muted">Posted: {{review.createdAtFormatted}}</p>
+    <p class="text-muted">Last Updated: {{review.updatedAt}}</p>
     <small>By: {{review.author.username}}</small>
     <h2>{{review.movieTitle}}</h2>
     <p>{{review.description}}</p>
 
-    <p><a href="/reviews/{{review._id}}/edit">Edit</a></p>
-
-    <p><form method="POST" action="/reviews/{{review._id}}?_method=DELETE">
-        <button class="btn btn-primary" type="submit">Delete</button>
-    </form></p>
+    {{#if theAuthor}}
+      <p><form action="/reviews/{{review._id}}/edit">
+          <button class="btn btn-primary" type="submit">Edit review</button>
+      </form></p>
+      
+      <p><form method="POST" action="/reviews/{{review._id}}?_method=DELETE">
+          <button class="btn btn-danger" type="submit">Delete</button>
+      </form></p>
+    {{/if}}
 
   </div>
 </div>
