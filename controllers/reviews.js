@@ -1,6 +1,7 @@
 const Review = require('../models/review');
 const Comment = require('../models/comment')
 const User = require('../models/user');
+const moment = require('moment');
 
 module.exports = function (app) {
 
@@ -53,11 +54,23 @@ module.exports = function (app) {
     app.get('/reviews/:id', (req, res) => {
         // retrieve current user
         const currentUser = req.user;
+
         Review.findById(req.params.id).lean().populate('comments').populate('author')
         .then(review => {
+            // check if user requesting website is the review author
+            if (currentUser === null) {
+                var theAuthor = false;
+            } else if (currentUser.username === review.author.username) {
+                theAuthor = true;
+            }
+            
+            let createdAt = review.createdAt;
+            createdAt = moment(createdAt).format("MMMM Do YYYY, h:mm:ss");
+            review.createdAt = createdAt;
+
             Comment.find({ reviewId: req.params.id })
                 .then((comments) => {
-                    res.render('reviews-show', { review, comments, currentUser });
+                    res.render('reviews-show', { review, comments, currentUser, theAuthor });
                 });
         })
         .catch(err => {
