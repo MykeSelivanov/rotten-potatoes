@@ -6,8 +6,8 @@
   <div class="col-sm-6 col-sm-offset-3">
 
     <h1>{{review.title}}</h1>
-    <p class="text-muted">Posted: {{review.createdAtFormatted}}</p>
-    <p class="text-muted">Last Updated: {{review.updatedAt}}</p>
+    <p class="text-muted">Posted: {{createdAtFormatted}}</p>
+    <p class="text-muted">Last Updated: {{updatedAtFormatted}}</p>
     <small>By: {{review.author.username}}</small>
     <h2>{{review.movieTitle}}</h2>
     <p>{{review.description}}</p>
@@ -31,7 +31,8 @@
         {{> comment-form}}
 
 <hr>
-
+<div class="container mb-5"></div>
     {{#each comments}}
         {{> comment}}
     {{/each}}
+</div>
