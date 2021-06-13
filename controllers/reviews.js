@@ -1,7 +1,7 @@
 const Review = require('../models/review');
 const Comment = require('../models/comment')
 const User = require('../models/user');
-const moment = require('moment');
+const dateFormat = require('dateformat');
 
 module.exports = function (app) {
 
@@ -64,13 +64,12 @@ module.exports = function (app) {
                 theAuthor = true;
             }
             
-            let createdAt = review.createdAt;
-            createdAt = moment(createdAt).format("MMMM Do YYYY, h:mm:ss");
-            review.createdAt = createdAt;
+            var createdAtFormatted = dateFormat(review.createdAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+            var updatedAtFormatted = dateFormat(review.updatedAt, "dddd, mmmm dS, yyyy, h:MM:ss TT");
 
             Comment.find({ reviewId: req.params.id })
                 .then((comments) => {
-                    res.render('reviews-show', { review, comments, currentUser, theAuthor });
+                    res.render('reviews-show', { review, comments, currentUser, theAuthor, createdAtFormatted, updatedAtFormatted });
                 });
         })
         .catch(err => {
